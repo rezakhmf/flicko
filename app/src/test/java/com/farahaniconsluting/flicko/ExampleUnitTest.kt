@@ -1,4 +1,4 @@
-package com.example.flicko
+package com.farahanconsulting.flicko
 
 import org.junit.Test
 

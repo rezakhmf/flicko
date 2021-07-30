@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="margin_small">8dp</dimen>
+    <dimen name="margin_half_medium">16dp</dimen>
+    <dimen name="margin_less_half">24dp</dimen>
+    <dimen name="margin_half_plus_medium">32dp</dimen>
+    <dimen name="margin_medium">64dp</dimen>
+    <dimen name="progressbar_min_height">50dp</dimen>
+    <dimen name="prgoressbar_width">100dp</dimen>
+</resources>

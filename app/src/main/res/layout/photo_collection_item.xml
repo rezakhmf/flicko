@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="photoItem"
+            type="com.farahaniconsulting.flicko.dto.PhotoItemDTO" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="8dp"
+        app:cardCornerRadius="6dp"
+        app:cardElevation="6dp"
+        card_view:layout_constraintLeft_toLeftOf="@id/guideline_left"
+        card_view:layout_constraintRight_toRightOf="@id/guideline_right"
+        card_view:layout_constraintTop_toTopOf="@id/guideline_top">
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline_top"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintGuide_begin="8dp" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline_left"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_begin="8dp" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guidelineMiddleCentre"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.50"/>
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline_right"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_end="8dp" />
+
+                <ImageView
+                    android:id="@+id/photoCollectionItemImageView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="29dp"
+                    app:imageSrc="@{photoItem.imageUrl}"
+                    app:layout_constraintTop_toBottomOf="@id/guideline_top"
+                    app:layout_constraintLeft_toLeftOf="@id/guidelineMiddleCentre"
+                    app:layout_constraintRight_toRightOf="@id/guidelineMiddleCentre"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:srcCompat="@drawable/ic_empty_image" />
+
+
+                <TextView
+                    android:id="@+id/titleTextView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_half_medium"
+                    android:layout_marginBottom="@dimen/margin_half_medium"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    android:text="@string/title"
+                    android:textAlignment="center"
+                    android:textSize="32dp"
+                    app:layout_constraintLeft_toLeftOf="@id/photoCollectionItemImageView"
+                    app:layout_constraintTop_toBottomOf="@id/photoCollectionItemImageView" />
+
+                <TextView
+                    android:id="@+id/titleValueTextView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_less_half"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    android:text="@{photoItem.title}"
+                    android:textAlignment="center"
+                    android:textSize="32dp"
+                    android:textStyle="bold"
+                    app:layout_constraintRight_toRightOf="@id/titleTextView"
+                    app:layout_constraintTop_toBottomOf="@id/titleTextView"
+                    tools:text="title" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+    </androidx.cardview.widget.CardView>
+</layout>
