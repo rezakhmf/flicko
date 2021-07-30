@@ -1,0 +1,138 @@
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-android-extensions'
+    id 'kotlin-kapt'
+    id 'androidx.navigation.safeargs.kotlin'
+}
+
+android {
+    compileSdkVersion build_versions.compileSdkVersion
+    buildToolsVersion build_versions.buildToolsVersion
+    defaultConfig {
+        applicationId build_versions.applicationId
+        minSdkVersion build_versions.minSdkVersion
+        targetSdkVersion build_versions.target_sdk
+        versionCode build_versions.version_code
+        versionName build_versions.version_name
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    lintOptions {
+        lintConfig rootProject.file('/tools/static-analysis/lint.xml')
+    }
+
+    dataBinding {
+        enabled = true
+    }
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8
+    }
+
+    testOptions {
+        unitTests.returnDefaultValues = true
+        execution 'ANDROIDX_TEST_ORCHESTRATOR'
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    sourceSets {
+        main {
+            res {
+                srcDirs 'src/main/res', 'src/main/res/layouts', 'src/main/res/layouts/parent'
+            }
+        }
+    }
+}
+
+dependencies {
+
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+
+    implementation langs.kotlin_version
+    implementation deps.androidx.appcompat
+    implementation deps.androidx.corektx
+    implementation deps.androidx.constraintlayout
+    implementation deps.androidx.material
+
+    implementation deps.androidx.recyclerview
+    implementation deps.androidx.cardview
+    // ViewModel
+    implementation deps.androidx.viewmodel
+    // LiveData
+    implementation deps.androidx.livedata
+    // Saved state module for ViewModel
+    implementation deps.androidx.lifecycle_viewmodel_savedstate
+    // navigation
+    implementation deps.androidx.navigation_fragment
+    implementation deps.androidx.navigation_ui
+    // alternately - if using Java8, use the following instead of lifecycle-compiler
+    implementation deps.androidx.lifecycle_common_java8
+    // optional - ReactiveStreams support for LiveData
+    implementation deps.androidx.lifecycle_reactivestreams_ktx
+
+
+    // Retrofit
+    implementation deps.retrofit.retrofit
+    implementation deps.retrofit.converter_gson
+    implementation deps.retrofit.adapter_rxjava
+
+    //Rx
+    implementation deps.rx.rx_java
+    implementation deps.rx.rx_android
+
+    //okHTTP
+    implementation deps.okhttp.okhttp
+    implementation deps.okhttp.okio
+    implementation deps.okhttp.logging_interceptor
+
+    //Gson
+    implementation deps.gson.gson
+
+    //Logging
+    implementation deps.log.timber
+
+    // Dagger 2
+    implementation deps.dagger.dagger
+    kapt deps.dagger.compiler
+    implementation deps.dagger.android
+    implementation deps.dagger.android_support
+    kapt deps.dagger.android_processor
+
+    // Image libraries
+    implementation deps.picasso.picasso
+    implementation deps.picasso.okhttp3Downloader
+
+    testImplementation deps.test.junit
+    testImplementation deps.test.mockito
+    testImplementation deps.test.hamcrest
+
+    // Test helpers for LiveData
+    testImplementation deps.test.arch_core
+    testImplementation deps.test.mockwebserver
+
+
+    androidTestImplementation deps.test.junit_ext
+    androidTestImplementation deps.test.espresso
+    androidTestImplementation deps.test.test_runner
+    androidTestImplementation deps.test.test_rules
+    debugImplementation deps.test.test_fragment
+
+
+    androidTestImplementation deps.dagger.dagger
+    androidTestImplementation deps.dagger.android_support
+    kaptAndroidTest deps.dagger.compiler
+    kaptAndroidTest deps.dagger.android_processor
+
+    androidTestUtil deps.test.orchestrator
+}

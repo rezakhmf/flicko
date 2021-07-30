@@ -1,0 +1,18 @@
+buildscript {
+    apply from: 'versions.gradle'
+    addRepos(repositories)
+
+    dependencies {
+        classpath langs.android_gradle_plugin
+        classpath langs.kotlin_plugin
+        classpath deps.androidx.navigation_args
+    }
+}
+
+allprojects {
+    addRepos(repositories)
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
