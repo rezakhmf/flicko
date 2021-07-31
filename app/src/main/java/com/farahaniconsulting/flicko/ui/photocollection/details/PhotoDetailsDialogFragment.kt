@@ -1,16 +1,23 @@
 package com.farahaniconsulting.flicko.ui.photocollection.details
 
 import android.app.Dialog
+import android.graphics.BitmapFactory
+import android.os.Build
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import com.farahanconsulting.flicko.databinding.FragmentPhotoDetailsBinding
 import com.farahaniconsulting.flicko.dto.PhotoItemDTO
+import timber.log.Timber
 
 
-class PhotoDetailsDialogFragment(val photoItem: PhotoItemDTO): DialogFragment() {
+class PhotoDetailsDialogFragment(val photoItem: PhotoItemDTO)
+    : DialogFragment() {
 
     private var _binding: FragmentPhotoDetailsBinding? = null
 
@@ -33,6 +40,9 @@ class PhotoDetailsDialogFragment(val photoItem: PhotoItemDTO): DialogFragment() 
     ): View? {
         _binding = FragmentPhotoDetailsBinding.inflate(inflater, container, false)
         binding.photoItem = photoItem
+        binding.imageWidthValueTextView.text = binding.headerImageView.maxWidth.toString()
+        binding.descriptionValueTextView.text = Html.fromHtml(photoItem.description, Html.FROM_HTML_MODE_COMPACT)
+
         return binding.root
     }
 
@@ -40,6 +50,10 @@ class PhotoDetailsDialogFragment(val photoItem: PhotoItemDTO): DialogFragment() 
         super.onViewCreated(view, savedInstanceState)
         binding.apply {
              toolbar.setNavigationOnClickListener { dismiss() }
+        }
+
+        view?.viewTreeObserver?.addOnWindowFocusChangeListener { hasFocus -> /*do your stuff here*/
+            binding.imageWidthValueTextView.text = binding.headerImageView.maxWidth.toString()
         }
     }
 
@@ -57,4 +71,6 @@ class PhotoDetailsDialogFragment(val photoItem: PhotoItemDTO): DialogFragment() 
             return PhotoDetailsDialogFragment(photoItem)
         }
     }
+
+
 }

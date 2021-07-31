@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.farahanconsulting.flicko.databinding.FragmentPhotoCollectionListBinding
 import com.farahaniconsulting.flicko.di.modules.ViewModelFactory
 import com.farahaniconsulting.flicko.ui.helper.ui.hideSoftKeyboard
+import com.farahaniconsulting.flicko.ui.main.MainActivity
 import com.farahaniconsulting.flicko.ui.photocollection.PhotoCollectionContract
 import com.farahaniconsulting.flicko.ui.photocollection.PhotoCollectionViewModel
 import com.farahaniconsulting.flicko.ui.photocollection.details.PhotoDetailsDialogFragment
@@ -23,7 +24,6 @@ import dagger.android.HasAndroidInjector
 import dagger.android.support.AndroidSupportInjection
 import kotlinx.android.synthetic.main.activity_main.*
 import timber.log.Timber
-import java.lang.RuntimeException
 import javax.inject.Inject
 
 class PhotoCollectionListFragment : Fragment(),
@@ -54,6 +54,7 @@ class PhotoCollectionListFragment : Fragment(),
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentPhotoCollectionListBinding.inflate(inflater, container, false)
+
         photoCollectionListAdapter = PhotoCollectionListAdapter { photoItem ->
             PhotoDetailsDialogFragment.newInstance(photoItem = photoItem)
                 .show(parentFragmentManager, PhotoDetailsDialogFragment.TAG)

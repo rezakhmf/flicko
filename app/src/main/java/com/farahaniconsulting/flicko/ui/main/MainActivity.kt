@@ -24,6 +24,8 @@ PhotoCollectionListFragment.OnFragmentInteractionListener {
         setupNavigation()
     }
 
+
+
     override fun androidInjector() = androidInjector
 
     private fun setupNavigation() {
@@ -33,6 +35,4 @@ PhotoCollectionListFragment.OnFragmentInteractionListener {
 
     override fun onSupportNavigateUp() =
         Navigation.findNavController(this, R.id.nav_fragment).navigateUp()
-
-
 }

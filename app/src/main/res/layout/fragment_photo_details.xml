@@ -70,7 +70,7 @@
                     app:layout_constraintGuide_end="8dp" />
 
                 <ImageView
-                    android:id="@+id/photoCollectionItemImageView"
+                    android:id="@+id/header_image_view"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:layout_marginStart="8dp"
@@ -102,7 +102,7 @@
                     android:singleLine="true"
                     android:text="@string/title"
                     android:textAlignment="center"
-                    android:textSize="32dp"
+                    android:textSize="20sp"
                     app:layout_constraintLeft_toLeftOf="@id/guideline_left"
                     app:layout_constraintTop_toBottomOf="@id/guidelineCentre" />
 
@@ -112,13 +112,14 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_marginLeft="16dp"
-                    android:layout_marginEnd="24dp"
+                    android:layout_marginEnd="18dp"
                     android:ellipsize="end"
                     android:singleLine="true"
                     android:text="@{photoItem.title}"
                     android:textAlignment="center"
-                    android:textSize="32dp"
+                    android:textSize="20sp"
                     android:textStyle="bold"
+                    android:inputType="textMultiLine"
                     app:layout_constraintLeft_toLeftOf="@id/guideline_left"
                     app:layout_constraintTop_toBottomOf="@id/titleTextView"
                     tools:text="title" />
@@ -135,7 +136,7 @@
                     android:singleLine="true"
                     android:text="@string/description"
                     android:textAlignment="center"
-                    android:textSize="32dp"
+                    android:textSize="20sp"
                     app:layout_constraintLeft_toLeftOf="@id/guideline_left"
                     app:layout_constraintTop_toBottomOf="@id/titleValueTextView" />
 
@@ -148,10 +149,10 @@
                     android:layout_marginEnd="@dimen/margin_less_half"
                     android:ellipsize="end"
                     android:singleLine="true"
-                    android:text="@{photoItem.description}"
                     android:textAlignment="center"
-                    android:textSize="32dp"
+                    android:textSize="20sp"
                     android:textStyle="bold"
+                    android:inputType="textMultiLine"
                     app:layout_constraintLeft_toLeftOf="@id/guideline_left"
                     app:layout_constraintTop_toBottomOf="@id/descriptionTextView"
                     tools:text="description" />
@@ -168,7 +169,7 @@
                     android:singleLine="true"
                     android:text="@string/width"
                     android:textAlignment="center"
-                    android:textSize="32dp"
+                    android:textSize="20sp"
                     app:layout_constraintLeft_toLeftOf="@id/guideline_left"
                     app:layout_constraintTop_toBottomOf="@id/descriptionValueTextView" />
 
@@ -181,9 +182,8 @@
                     android:layout_marginEnd="@dimen/margin_less_half"
                     android:ellipsize="end"
                     android:singleLine="true"
-                    android:text="@{photoItem.imageWidth}"
                     android:textAlignment="center"
-                    android:textSize="32dp"
+                    android:textSize="20sp"
                     android:textStyle="bold"
                     app:layout_constraintLeft_toLeftOf="@id/guideline_left"
                     app:layout_constraintTop_toBottomOf="@id/imageWidthTextView"
@@ -201,7 +201,7 @@
                     android:singleLine="true"
                     android:text="@string/height"
                     android:textAlignment="center"
-                    android:textSize="32dp"
+                    android:textSize="20sp"
                     app:layout_constraintLeft_toLeftOf="@id/guideline_left"
                     app:layout_constraintTop_toBottomOf="@id/imageWidthValueTextView" />
 
@@ -216,7 +216,7 @@
                     android:singleLine="true"
                     android:text="@{photoItem.imageHeight}"
                     android:textAlignment="center"
-                    android:textSize="32dp"
+                    android:textSize="20sp"
                     android:textStyle="bold"
                     app:layout_constraintLeft_toLeftOf="@id/guideline_left"
                     app:layout_constraintTop_toBottomOf="@id/imageHeightTextView"
@@ -234,7 +234,7 @@
                     android:singleLine="true"
                     android:text="@string/author"
                     android:textAlignment="center"
-                    android:textSize="32dp"
+                    android:textSize="20sp"
                     app:layout_constraintLeft_toLeftOf="@id/guideline_left"
                     app:layout_constraintTop_toBottomOf="@id/imageHeightValueTextView" />
 
@@ -249,7 +249,7 @@
                     android:singleLine="true"
                     android:text="@{photoItem.author}"
                     android:textAlignment="center"
-                    android:textSize="32dp"
+                    android:textSize="20sp"
                     android:textStyle="bold"
                     app:layout_constraintLeft_toLeftOf="@id/guideline_left"
                     app:layout_constraintTop_toBottomOf="@id/imageAuthorTextView"
