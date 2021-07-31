@@ -38,7 +38,6 @@ class FlickoApplication  : Application(), HasAndroidInjector {
         val picassoBuilder = Picasso.Builder(this)
         picassoBuilder.downloader(OkHttp3Downloader(this, Integer.MAX_VALUE.toLong()))
         val built = picassoBuilder.build()
-        built.setIndicatorsEnabled(true)
         built.isLoggingEnabled = BuildConfig.DEBUG
         Picasso.setSingletonInstance(built)
     }

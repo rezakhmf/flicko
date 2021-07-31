@@ -2,6 +2,7 @@ package com.farahaniconsulting.flicko.di.modules
 
 import com.farahaniconsulting.flicko.data.repository.PhotoCollectionRepository
 import com.farahaniconsulting.flicko.data.repository.REPOSITORY_LOCAL
+import com.farahaniconsulting.flicko.data.repository.REPOSITORY_REMOTE
 import com.farahaniconsulting.flicko.domain.photoCollection.GetPhotoCollectionUseCase
 import dagger.Module
 import dagger.Provides
@@ -15,7 +16,7 @@ class UseCaseModule {
     @Provides
     @Singleton
     fun provideGetUpComingLaunchesUC(
-        @Named(REPOSITORY_LOCAL) repository: PhotoCollectionRepository,
+        @Named(REPOSITORY_REMOTE) repository: PhotoCollectionRepository,
         @Named(SUBSCRIBER_ON) backgroundScheduler: Scheduler
     ): GetPhotoCollectionUseCase =
         GetPhotoCollectionUseCase(

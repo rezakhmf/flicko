@@ -6,6 +6,6 @@ import retrofit2.http.Query
 
 class PhotoCollectionRemoteRepository(private val apiService: ApiService) : PhotoCollectionRepository {
 
-    override fun getPhotoCollection(@Query(value = "tags") searchTerm: String?) =
-        apiService.getImages()
+    override fun getPhotoCollection(searchItem: String) =
+        apiService.getImages(searchItem)
 }

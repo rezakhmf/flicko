@@ -5,11 +5,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.farahanconsulting.flicko.databinding.FragmentPhotoCollectionListBinding
 import com.farahaniconsulting.flicko.di.modules.ViewModelFactory
+import com.farahaniconsulting.flicko.ui.helper.ui.hideSoftKeyboard
 import com.farahaniconsulting.flicko.ui.photocollection.PhotoCollectionContract
 import com.farahaniconsulting.flicko.ui.photocollection.PhotoCollectionViewModel
 import com.farahaniconsulting.flicko.ui.photocollection.details.PhotoDetailsDialogFragment
@@ -46,27 +48,36 @@ class PhotoCollectionListFragment : Fragment(),
         viewModel = ViewModelProvider(this, vmFactory).get(PhotoCollectionViewModel::class.java)
     }
 
-    private fun triggerSearch(searchItem: String) {
-        viewModel.searchItem = searchItem
-        viewModel.fetchPhotoCollection()
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentPhotoCollectionListBinding.inflate(inflater, container, false)
+        photoCollectionListAdapter = PhotoCollectionListAdapter { photoItem ->
+            PhotoDetailsDialogFragment.newInstance(photoItem = photoItem)
+                .show(parentFragmentManager, PhotoDetailsDialogFragment.TAG)
+        }
         setupUI()
         return binding.root
     }
 
     private fun setupUI() {
         binding.apply {
-            photoCollectionListAdapter = PhotoCollectionListAdapter { photoItem ->
-                PhotoDetailsDialogFragment.newInstance(photoItem = photoItem)
-                    .show(parentFragmentManager, PhotoDetailsDialogFragment.TAG)
-            }
+
+            photoCollectionListRv.adapter = photoCollectionListAdapter
+
+            searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                override fun onQueryTextSubmit(query: String?): Boolean {
+                    query?.let { triggerSearch(it) }
+                    activity?.hideSoftKeyboard()
+                    return true
+                }
+
+                override fun onQueryTextChange(newText: String?): Boolean {
+                    return true
+                }
+            })
         }
     }
 
@@ -94,6 +105,10 @@ class PhotoCollectionListFragment : Fragment(),
     override fun onDetach() {
         super.onDetach()
         listener = null
+    }
+
+    private fun triggerSearch(searchItem: String) {
+        viewModel.fetchPhotoCollection(searchItem)
     }
 
     private fun render(viewState: PhotoCollectionContract.ViewState) {

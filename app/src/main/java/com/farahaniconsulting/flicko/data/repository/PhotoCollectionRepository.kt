@@ -7,5 +7,5 @@ const val REPOSITORY_LOCAL = "repositoryLocal"
 const val REPOSITORY_REMOTE = "repositoryRemote"
 
 interface PhotoCollectionRepository {
-    fun getPhotoCollection(searchTerm: String?): Single<PhotoCollection?>
+    fun getPhotoCollection(searchItem: String): Single<PhotoCollection?>
 }

@@ -8,7 +8,7 @@ import io.reactivex.Single
 
 class PhotoCollectionLocalRepository() : PhotoCollectionRepository {
 
-    override fun getPhotoCollection(searchTerm: String?): Single<PhotoCollection?> {
+    override fun getPhotoCollection(searchTerm: String): Single<PhotoCollection?> {
 
         var result: PhotoCollection? = null
         searchTerm?.let {

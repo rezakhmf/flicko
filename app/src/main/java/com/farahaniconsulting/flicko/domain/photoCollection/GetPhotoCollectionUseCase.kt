@@ -12,10 +12,8 @@ class GetPhotoCollectionUseCase(
 ) :
     UseCase<GetPhotoCollectionUseCase.RequestValues, GetPhotoCollectionUseCase.ResponseValue>(backgroundScheduler) {
 
-    var searchTerm: String? = null
-
     override fun executeUseCase(requestValues: RequestValues): Single<ResponseValue> =
-         repository.getPhotoCollection(searchTerm).map { photoCollection ->
+         repository.getPhotoCollection(requestValues.searchItem).map { photoCollection ->
              photoCollection.items?.let { item ->
                  ResponseValue(item.map {
                      it.toDTO().apply {  }
@@ -23,7 +21,7 @@ class GetPhotoCollectionUseCase(
              }
         }
 
-    class RequestValues : UseCase.RequestValues
+    class RequestValues(val searchItem: String) : UseCase.RequestValues
     class ResponseValue(val photoItem: List<PhotoItemDTO>) : UseCase.ResponseValue
 
 }

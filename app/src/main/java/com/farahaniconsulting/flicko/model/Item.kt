@@ -17,7 +17,7 @@ data class Item(
     val title: String?
 ) {
     fun toDTO() = PhotoItemDTO(
-        imageUrl = link,
+        imageUrl = media?.source,
         title = title,
         description = description,
         author = author

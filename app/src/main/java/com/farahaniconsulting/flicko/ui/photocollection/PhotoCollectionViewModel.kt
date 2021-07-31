@@ -27,22 +27,20 @@ class PhotoCollectionViewModel(
     }
     private var photoItemDTO: List<PhotoItemDTO> = mutableListOf()
 
-    var searchItem: String? = null
-
     val viewState: LiveData<PhotoCollectionContract.ViewState>
         get() = mutableViewState
 
     val photoCollectionLiveData: LiveData<PhotoItemDTO>
         get()= mutablePhotoCollection
 
-    fun fetchPhotoCollection() {
+    fun fetchPhotoCollection(searchItem: String) {
 
         mutableViewState.value  = PhotoCollectionContract.ViewState(
             isLoading = true, errorState = null
         )
 
         addDisposable(
-            getPhotoCollectionUseCase.run(GetPhotoCollectionUseCase.RequestValues())
+            getPhotoCollectionUseCase.run(GetPhotoCollectionUseCase.RequestValues(searchItem))
                 .observeOn(observerOn)
                 .subscribeWith(
                     object : DisposableSingleObserver<GetPhotoCollectionUseCase.ResponseValue>() {

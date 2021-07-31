@@ -7,7 +7,7 @@ import kotlinx.android.parcel.Parcelize
 data class PhotoItemDTO(val imageUrl: String?,
                             val title: String?,
                             val description: String?,
-                            val imageWidth: Int? = 0,
-                            val imageHeight: Int?= 0,
+                            val imageWidth: String? = "",
+                            val imageHeight: String? = "",
                            val author: String?
                             ) : Parcelable
