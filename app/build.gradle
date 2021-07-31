@@ -63,6 +63,7 @@ dependencies {
     implementation deps.androidx.appcompat
     implementation deps.androidx.corektx
     implementation deps.androidx.constraintlayout
+    implementation deps.androidx.coordinatorlayout
     implementation deps.androidx.material
 
     implementation deps.androidx.recyclerview
