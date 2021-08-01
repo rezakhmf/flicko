@@ -25,7 +25,6 @@ class PhotoCollectionViewModel(
     private val mutablePhotoCollection: MutableLiveData<PhotoItemDTO> by lazy {
         MutableLiveData<PhotoItemDTO>()
     }
-    private var photoItemDTO: List<PhotoItemDTO> = mutableListOf()
 
     val viewState: LiveData<PhotoCollectionContract.ViewState>
         get() = mutableViewState

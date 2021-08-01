@@ -62,6 +62,7 @@
                     android:layout_marginTop="16dp"
                     android:layout_marginBottom="29dp"
                     app:imageSrc="@{photoItem.imageUrl}"
+                    android:contentDescription="@{photoItem.title}"
                     app:layout_constraintTop_toBottomOf="@id/guideline_top"
                     app:layout_constraintLeft_toLeftOf="@id/guidelineMiddleCentre"
                     app:layout_constraintRight_toRightOf="@id/guidelineMiddleCentre"

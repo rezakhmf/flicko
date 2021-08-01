@@ -56,8 +56,7 @@ class PhotoCollectionListFragment : Fragment(),
         binding = FragmentPhotoCollectionListBinding.inflate(inflater, container, false)
 
         photoCollectionListAdapter = PhotoCollectionListAdapter { photoItem ->
-            PhotoDetailsDialogFragment.newInstance(photoItem = photoItem)
-                .show(parentFragmentManager, PhotoDetailsDialogFragment.TAG)
+            viewModel.photoTapped(photoItem)
         }
         setupUI()
         return binding.root
@@ -90,6 +89,10 @@ class PhotoCollectionListFragment : Fragment(),
         viewModel.viewState.observe(viewLifecycleOwner, Observer {
             Timber.d("photo collection: $it")
             it?.let { render(it) }
+        })
+        viewModel.photoCollectionLiveData.observe(viewLifecycleOwner, Observer {
+            PhotoDetailsDialogFragment.newInstance(photoItem = it)
+                .show(parentFragmentManager, PhotoDetailsDialogFragment.TAG)
         })
     }
 
