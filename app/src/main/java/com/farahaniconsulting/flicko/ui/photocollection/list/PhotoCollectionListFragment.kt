@@ -12,7 +12,6 @@ import androidx.lifecycle.ViewModelProvider
 import com.farahanconsulting.flicko.databinding.FragmentPhotoCollectionListBinding
 import com.farahaniconsulting.flicko.di.modules.ViewModelFactory
 import com.farahaniconsulting.flicko.ui.helper.ui.hideSoftKeyboard
-import com.farahaniconsulting.flicko.ui.main.MainActivity
 import com.farahaniconsulting.flicko.ui.photocollection.PhotoCollectionContract
 import com.farahaniconsulting.flicko.ui.photocollection.PhotoCollectionViewModel
 import com.farahaniconsulting.flicko.ui.photocollection.details.PhotoDetailsDialogFragment
@@ -22,7 +21,6 @@ import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
 import dagger.android.support.AndroidSupportInjection
-import kotlinx.android.synthetic.main.activity_main.*
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -88,11 +86,11 @@ class PhotoCollectionListFragment : Fragment(),
         }
         viewModel.viewState.observe(viewLifecycleOwner, Observer {
             Timber.d("photo collection: $it")
-            it?.let { render(it) }
+            it?.let { renderView(it) }
         })
-        viewModel.photoCollectionLiveData.observe(viewLifecycleOwner, Observer {
-            PhotoDetailsDialogFragment.newInstance(photoItem = it)
-                .show(parentFragmentManager, PhotoDetailsDialogFragment.TAG)
+        viewModel.detailsView.observe(viewLifecycleOwner, Observer {
+            Timber.d("photo details: $it")
+            it?.let { renderDetailsView(it) }
         })
     }
 
@@ -115,7 +113,7 @@ class PhotoCollectionListFragment : Fragment(),
         viewModel.fetchPhotoCollection(searchItem)
     }
 
-    private fun render(viewState: PhotoCollectionContract.ViewState) {
+    private fun renderView(viewState: PhotoCollectionContract.ViewState) {
         when(viewState.isLoading) {
             true -> binding.pageLoadingIndicator.visibility = View.VISIBLE
             false -> binding.pageLoadingIndicator.visibility = View.GONE
@@ -131,6 +129,18 @@ class PhotoCollectionListFragment : Fragment(),
         }
     }
 
+    private fun renderDetailsView(detailsViewState: PhotoCollectionContract.DetailsViewState) {
+        if (detailsViewState.errorState != null) {
+            showError(detailsViewState.errorState.message.getText(requireContext()).toString())
+            showListView(false)
+        }
+
+        if (detailsViewState.detailsData != null) {
+            PhotoDetailsDialogFragment.newInstance(photoItem = detailsViewState.detailsData)
+                .show(parentFragmentManager, PhotoDetailsDialogFragment.TAG)
+        }
+    }
+
     private fun showListView(show: Boolean) {
         binding.photoCollectionListRv.visibility = if (show) View.VISIBLE else View.GONE
     }
@@ -141,7 +151,4 @@ class PhotoCollectionListFragment : Fragment(),
     interface OnFragmentInteractionListener
 
     override fun androidInjector(): AndroidInjector<Any> = androidInjector
-
-    companion object {
-    }
 }

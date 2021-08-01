@@ -22,14 +22,15 @@ class PhotoCollectionViewModel(
     private val mutableViewState: MutableLiveData<PhotoCollectionContract.ViewState> by lazy {
         MutableLiveData<PhotoCollectionContract.ViewState>()
     }
-    private val mutablePhotoCollection: MutableLiveData<PhotoItemDTO> by lazy {
-        MutableLiveData<PhotoItemDTO>()
+
+    private val mutablePhotoCollection: MutableLiveData<PhotoCollectionContract.DetailsViewState> by lazy {
+        MutableLiveData<PhotoCollectionContract.DetailsViewState>()
     }
 
     val viewState: LiveData<PhotoCollectionContract.ViewState>
         get() = mutableViewState
 
-    val photoCollectionLiveData: LiveData<PhotoItemDTO>
+    val detailsView: LiveData<PhotoCollectionContract.DetailsViewState>
         get()= mutablePhotoCollection
 
     fun fetchPhotoCollection(searchItem: String) {
@@ -65,7 +66,10 @@ class PhotoCollectionViewModel(
     }
 
     fun photoTapped(photoItem: PhotoItemDTO) {
-        mutablePhotoCollection.value = photoItem
+        mutablePhotoCollection.value = PhotoCollectionContract.DetailsViewState(
+            detailsData = photoItem,
+            errorState = null
+        )
     }
     private fun handleLoadingError(errorState: PageErrorState) {
         mutableViewState.value = PhotoCollectionContract.ViewState(
